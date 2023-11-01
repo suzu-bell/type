@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>タイプ相性</title>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                margin: 0 100px;
+            }
+
+            p {
+                border-radius: 5px;
+            }
+
+            #result {
+                height: 100px;
+                width: 100%;
+                margin: 0 auto;
+                line-height: 100px;
+                text-align: center;
+                font-size: 30px;
+                font-weight: bold;
+                color: #4e454a;
+                padding-top: 50px;
+            }
+
+            .battle {
+                display: flex;
+                justify-content: center;
+                margin-top: 50px;
+                border: 5px solid #4e454a;
+                border-radius: 2px;
+                padding: 10px;
+            }
+
+            .rival {
+                text-align: center;
+                height: 300px;
+                width: 400px;
+                display: flex;
+                align-items: center;
+                justify-content: right;
+            }
+
+            #rival-type {
+                height: 40px;
+                width: 140px;
+                font-size: 25px;
+                line-height: 40px;
+                margin: 30px;
+                border: 1px solid;
+                color: white;
+            }
+
+            .vs {
+                font-size: 50px;
+                font-weight: bold;
+                color: #4e454a;
+                margin: 100px;
+            }
+
+            .mine {
+                display: flex;
+                flex-wrap: wrap;
+                text-align: center;
+                height: 300px;
+                width: 400px;
+            }
+
+            .type {
+                height: 30px;
+                width:100px;
+                border: 1px solid;
+                margin: 10px;
+                line-height: 30px;
+                color: white;
+            }
+
+            .type:hover {
+                cursor: pointer;
+            }
+
+            .nomal {
+                background-color: #d3d3d3;
+            }
+
+            .fire {
+                background-color: #f4a460;
+            }
+
+            .water {
+                background-color: #00bfff;
+            }
+
+            .electric {
+                background-color: #ebd842;
+            }
+
+            .glass {
+                background-color: #228b22;
+            }
+
+            .ice {
+                background-color: #87cefa;
+            }
+
+            .fighting {
+                background-color: #ff6347;
+            }
+
+            .poison {
+                background-color: #9370db;
+            }
+
+            .ground {
+                background-color: #daa520;
+            }
+
+            .flying {
+                background-color: #6495ed;
+            }
+
+            .psychic {
+                background-color: #ee82ee;
+            }
+
+            .bug {
+                background-color: #00ff00;
+            }
+
+            .rock {
+                background-color: #ffd700;
+            }
+
+            .ghost {
+                background-color: #4b0082;
+            }
+
+            .dragon {
+                background-color: #ff8c00;
+            }
+
+            .dark {
+                background-color: #4169e1;
+            }
+
+            .steel {
+                background-color: #808080;
+            }
+
+            .fairy {
+                background-color: #e29399;
+            }
+
+
+            .button {
+                width: fit-content;
+                margin: 0 auto;
+            }
+
+        
+
+            #btn {
+                color: #4e454a;
+                height: 50px;
+                width: 400px;
+                text-align: center;
+                line-height: 50px;
+                font-size: 30px;
+            }
+
+            .reset {
+                background-color: #9fa09e;
+            }
+
+            
+
+        </style>
+    </head>
+    <body>
+        <div>
+            <p id="result">エラー</p>
+        </div>
+        <div class="battle">
+            <div class="rival">
+                <p id="rival-type">エラー</p>
+            </div>
+            <div>
+                <p class="vs">VS</p>
+            </div>
+            <div class="mine">
+                <p id="nomal" class="nomal type">ノーマル</p>
+                <p id="fire" class="fire type">ほのお</p>
+                <p id="water" class="water type">みず</p>
+                <p id="electric" class="electric type">でんき</p>
+                <p id="glass" class="glass type">くさ</p>
+                <p id="ice" class="ice type">こおり</p>
+                <p id="fighting" class="fighting type">かくとう</p>
+                <p id="poison" class="poison type">どく</p>
+                <p id="ground" class="ground type">じめん</p>
+                <p id="flying" class="flying type">ひこう</p>
+                <p id="psychic" class="psychic type">エスパー</p>
+                <p id="bug" class="bug type">むし</p>
+                <p id="rock" class="rock type">いわ</p>
+                <p id="ghost" class="ghost type">ゴースト</p>
+                <p id="dragon" class="dragon type">ドラゴン</p>
+                <p id="dark" class="dark type">あく</p>
+                <p id="steel" class="steel type">はがね</p>
+                <p id="fairy" class="fairy type">フェアリー</p>
+            </div>
+        </div>
+        <div class="button">
+            <p id="btn">エラー</p>
+        </div>
+        <script>
+            let type1 =["ノーマル","nomal"];
+            let type2 =["ほのお","fire"];
+            let type3 =["みず","water"];
+            let type4 =["でんき","electric"];
+            let type5 =["くさ","glass"];
+            let type6 =["こおり","ice"];
+            let type7 =["かくとう","fighting"];
+            let type8 =["どく","poison"];
+            let type9 =["じめん","ground"];
+            let type10 =["ひこう","flying"];
+            let type11 =["エスパー","psychic"];
+            let type12 =["むし","bug"];
+            let type13 =["いわ","rock"];
+            let type14 =["ゴースト","ghost"];
+            let type15 =["ドラゴン","dragon"];
+            let type16 =["あく","dark"];
+            let type17 =["はがね","steel"];
+            let type18 =["フェアリー","fairy"];
+
+            let type = [type1,type2,type3,type4,type5,type6,type7,type8,type9,
+                        type10,type11,type12,type13,type14,type15,type16,type17,type18]
+
+        
+            let rival_type = document.getElementById("rival-type");
+            let btn = document.getElementById("btn");
+            let result = document.getElementById("result");
+
+            function rival() {
+                const random = Math.floor(Math.random() * type.length);
+                rival_type.textContent = type[random][0];
+                rival_type.className = type[random][1];
+                btn.textContent = "タイプをえらぼう";
+                btn.classList.remove("reset");
+                result.textContent = "";
+            }
+            
+            window.onload = function(){
+                rival();
+            }
+            
+
+            function reset(){
+                btn.textContent = "リセット";
+                btn.classList.add("reset");
+            }
+
+            function rival_reset(){
+                let btn_reset = btn.textContent
+                if (btn_reset == "リセット"){
+                    rival();
+                }
+            }
+            
+            btn.addEventListener('click', rival_reset);
+
+            function battle_nomal(){
+                let random_type = rival_type.textContent;
+                reset();
+                switch (random_type){
+                    case "ノーマル":
+                    case "ほのお":
+                    case "みず":
+                    case "でんき":
+                    case "くさ":
+                    case "こおり":
+                    case "かくとう":
+                    case "どく":
+                    case "じめん":
+                    case "ひこう":
+                    case "エスパー":
+                    case "むし":
+                    case "ドラゴン":
+                    case "あく":
+                    case "フェアリー":
+                        result.textContent = "勝ち！";
+                        break;
+                    case "いわ":
+                    case "はがね":
+                        result.textContent = "効果はいまひとつのようだ…";
+                        break;
+                    case "ゴースト":
+                        result.textContent = "効果がないようだ…";
+                        break;
+                    default:
+                        result.textContent = "エラー";
+                }
+                
+            }
+
+            document.getElementById("nomal").addEventListener('click', battle_nomal);
+
+
+            function battle_fire(){
+                let random_type = rival_type.textContent;
+                reset();
+                switch (random_type){
+                    case "ノーマル":
+                    case "でんき":
+                    case "かくとう":
+                    case "どく":
+                    case "じめん":
+                    case "ひこう":
+                    case "エスパー":
+                    case "ゴースト":
+                    case "あく":
+                    case "フェアリー":
+                        result.textContent = "勝ち！";
+                        break;
+                    case "ほのお":
+                    case "みず":
+                    case "いわ":
+                    case "ドラゴン":
+                        result.textContent = "効果はいまひとつのようだ…";
+                        break;
+                    case "くさ":
+                    case "こおり":
+                    case "むし":
+                    case "はがね":
+                        result.textContent = "効果はばつぐんだ！";
+                        break;
+                    default:
+                        result.textContent = "エラー";
+                }
+                
+            }
+            
+            document.getElementById("fire").addEventListener('click', battle_fire);
+
+
+            function battle_water(){
+                let random_type = rival_type.textContent;
+                reset();
+                switch (random_type){
+                    case "ノーマル":
+                    case "でんき":
+                    case "こおり":
+                    case "かくとう":
+                    case "どく":
+                    case "ひこう":
+                    case "エスパー":
+                    case "むし":
+                    case "ゴースト":
+                    case "あく":
+                    case "はがね":
+                    case "フェアリー":
+                        result.textContent = "勝ち！";
+                        break;
+                    case "みず":
+                    case "くさ":
+                    case "ドラゴン":
+                        result.textContent = "効果はいまひとつのようだ…";
+                        break;
+                    case "ほのお":
+                    case "じめん":
+                    case "いわ":
+                        result.textContent = "効果はばつぐんだ！";
+                        break;
+                    default:
+                        result.textContent = "エラー";
+                }
+                
+            }
+
+            document.getElementById("water").addEventListener('click', battle_water);
+
+
+
+
+            function battle_electric(){
+                let random_type = rival_type.textContent;
+                reset();
+                switch (random_type){
+                    case "ノーマル":
+                    case "ほのお":
+                    case "こおり":
+                    case "かくとう":
+                    case "どく":
+                    case "エスパー":
+                    case "むし":
+                    case "いわ":
+                    case "ゴースト":
+                    case "あく":
+                    case "はがね":
+                    case "フェアリー":
+                        result.textContent = "勝ち！";
+                        break;
+                    case "でんき":
+                    case "くさ":
+                    case "ドラゴン":
+                        result.textContent = "効果はいまひとつのようだ…";
+                        break;
+                    case "みず":
+                    case "ひこう":
+                        result.textContent = "効果はばつぐんだ！";
+                        break;
+                    case "じめん":
+                        result.textContent = "効果がないようだ…";
+                        break;
+                    default:
+                        result.textContent = "エラー";
+                }
+                
+            }
+
+            document.getElementById("electric").addEventListener('click', battle_electric);
+            
+
+
+
+            function battle_glass(){
+                let random_type = rival_type.textContent;
+                reset();
+                switch (random_type){
+                    case "ノーマル":
+                    case "でんき":
+                    case "こおり":
+                    case "かくとう":
+                    case "エスパー":
+                    case "ゴースト":
+                    case "あく":
+                    case "フェアリー":
+                        result.textContent = "勝ち！";
+                        break;
+                    case "ほのお":
+                    case "くさ":
+                    case "どく":
+                    case "ひこう":
+                    case "むし":
+                    case "ドラゴン":
+                    case "はがね":
+                        result.textContent = "効果はいまひとつのようだ…";
+                        break;
+                    case "みず":
+                    case "じめん":
+                    case "いわ":
+                        result.textContent = "効果はばつぐんだ！";
+                        break;
+                    default:
+                        result.textContent = "エラー";
+                }
+                
+            }
+
+            document.getElementById("glass").addEventListener('click', battle_glass);
+
+
+            function battle_ice(){
+                let random_type = rival_type.textContent;
+                reset();
+                switch (random_type){
+                    case "ノーマル":
+                    case "でんき":
+                    case "かくとう":
+                    case "どく":
+                    case "エスパー":
+                    case "むし":
+                    case "いわ":
+                    case "ゴースト":
+                    case "あく":
+                    case "フェアリー":
+                        result.textContent = "勝ち！";
+                        break;
+                    case "ほのお":
+                    case "みず":
+                    case "こおり":
+                    case "はがね":
+                        result.textContent = "効果はいまひとつのようだ…";
+                        break;
+                    case "くさ":
+                    case "じめん":
+                    case "ひこう":
+                    case "ドラゴン":
+                        result.textContent = "効果はばつぐんだ！";
+                        break;
+                    default:
+                        result.textContent = "エラー";
+                }
+                
+            }
+
+            document.getElementById("ice").addEventListener('click', battle_ice);
+
+
+
+            function battle_fighting(){
+                let random_type = rival_type.textContent;
+                reset();
+                switch (random_type){
+                    case "ほのお":
+                    case "みず":
+                    case "でんき":
+                    case "くさ":
+                    case "こおり":
+                    case "かくとう":
+                    case "じめん":
+                    case "ドラゴン":
+                        result.textContent = "勝ち！";
+                        break;
+                    case "どく":
+                    case "ひこう":
+                    case "エスパー":
+                    case "むし":
+                    case "フェアリー":
+                        result.textContent = "効果はいまひとつのようだ…";
+                        break;
+                    case "ノーマル":
+                    case "こおり":
+                    case "いわ":
+                    case "あく":
+                    case "はがね":
+                        result.textContent = "効果はばつぐんだ！";
+                        break;
+                    case "ゴースト":
+                        result.textContent = "効果がないようだ…";
+                        break;
+                    default:
+                        result.textContent = "エラー";
+                }
+                
+            }
+
+            document.getElementById("fighting").addEventListener('click', battle_fighting);
+
+
+
+
+            function battle_poison(){
+                let random_type = rival_type.textContent;
+                reset();
+                switch (random_type){
+                    case "ノーマル":
+                    case "ほのお":
+                    case "みず":
+                    case "でんき":
+                    case "こおり":
+                    case "かくとう":
+                    case "ひこう":
+                    case "エスパー":
+                    case "むし":
+                    case "ドラゴン":
+                    case "あく":
+                        result.textContent = "勝ち！";
+                        break;
+                    case "どく":
+                    case "じめん":
+                    case "いわ":
+                    case "ゴースト":
+                        result.textContent = "効果はいまひとつのようだ…";
+                        break;
+                    case "くさ":
+                    case "フェアリー":
+                        result.textContent = "効果はばつぐんだ！";
+                        break;
+                    case "はがね":
+                        result.textContent = "効果がないようだ…";
+                        break;
+                    default:
+                        result.textContent = "エラー";
+                }
+                
+            }
+
+            document.getElementById("poison").addEventListener('click', battle_poison);
+
+
+
+
+            function battle_ground(){
+                let random_type = rival_type.textContent;
+                reset();
+                switch (random_type){
+                    case "ノーマル":
+                    case "みず":
+                    case "こおり":
+                    case "かくとう":
+                    case "じめん":
+                    case "エスパー":
+                    case "ゴースト":
+                    case "ドラゴン":
+                    case "あく":
+                    case "フェアリー":
+                        result.textContent = "勝ち！";
+                        break;
+                    case "くさ":
+                    case "むし":
+                        result.textContent = "効果はいまひとつのようだ…";
+                        break;
+                    case "ほのお":
+                    case "でんき":
+                    case "どく":
+                    case "いわ":
+                    case "はがね":
+                        result.textContent = "効果はばつぐんだ！";
+                        break;
+                    case "ひこう":
+                        result.textContent = "効果がないようだ…";
+                        break;
+                    default:
+                        result.textContent = "エラー";
+                }
+                
+            }
+
+            document.getElementById("ground").addEventListener('click', battle_ground);
+
+
+
+
+            function battle_flying(){
+                let random_type = rival_type.textContent;
+                reset();
+                switch (random_type){
+                    case "ノーマル":
+                    case "ほのお":
+                    case "みず":
+                    case "こおり":
+                    case "どく":
+                    case "じめん":
+                    case "ひこう":
+                    case "エスパー":
+                    case "ゴースト":
+                    case "ドラゴン":
+                    case "あく":
+                    case "フェアリー":
+                        result.textContent = "勝ち！";
+                        break;
+                    case "でんき":
+                    case "いわ":
+                    case "はがね":
+                        result.textContent = "効果はいまひとつのようだ…";
+                        break;
+                    case "くさ":
+                    case "かくとう":
+                    case "むし":
+                        result.textContent = "効果はばつぐんだ！";
+                        break;
+                    default:
+                        result.textContent = "エラー";
+                }
+                
+            }
+
+            document.getElementById("flying").addEventListener('click', battle_flying);
+
+
+
+            function battle_psychic(){
+                let random_type = rival_type.textContent;
+                reset();
+                switch (random_type){
+                    case "ノーマル":
+                    case "ほのお":
+                    case "みず":
+                    case "でんき":
+                    case "くさ":
+                    case "こおり":
+                    case "じめん":
+                    case "ひこう":
+                    case "むし":
+                    case "いわ":
+                    case "ゴースト":
+                    case "ドラゴン":
+                    case "フェアリー":
+                        result.textContent = "勝ち！";
+                        break;
+                    case "エスパー":
+                    case "はがね":
+                        result.textContent = "効果はいまひとつのようだ…";
+                        break;
+                    case "かくとう":
+                    case "どく":
+                        result.textContent = "効果はばつぐんだ！";
+                        break;
+                    case "あく":
+                        result.textContent = "効果がないようだ…";
+                        break;
+                    default:
+                        result.textContent = "エラー";
+                }
+                
+            }
+
+            document.getElementById("psychic").addEventListener('click', battle_psychic);
+
+
+
+
+            function battle_bug(){
+                let random_type = rival_type.textContent;
+                reset();
+                switch (random_type){
+                    case "ノーマル":
+                    case "みず":
+                    case "でんき":
+                    case "こおり":
+                    case "じめん":
+                    case "むし":
+                    case "いわ":
+                    case "ドラゴン":
+                        result.textContent = "勝ち！";
+                        break;
+                    case "ほのお":
+                    case "かくとう":
+                    case "どく":
+                    case "ひこう":
+                    case "ゴースト":
+                    case "はがね":
+                    case "フェアリー":
+                        result.textContent = "効果はいまひとつのようだ…";
+                        break;
+                    case "くさ":
+                    case "エスパー":
+                    case "あく":
+                        result.textContent = "効果はばつぐんだ！";
+                        break;
+                    default:
+                        result.textContent = "エラー";
+                }
+                
+            }
+
+            document.getElementById("bug").addEventListener('click', battle_bug);
+
+
+
+
+            function battle_rock(){
+                let random_type = rival_type.textContent;
+                reset();
+                switch (random_type){
+                    case "ノーマル":
+                    case "みず":
+                    case "でんき":
+                    case "くさ":
+                    case "どく":
+                    case "エスパー":
+                    case "いわ":
+                    case "ゴースト":
+                    case "ドラゴン":
+                    case "あく":
+                    case "フェアリー":
+                        result.textContent = "勝ち！";
+                        break;
+                    case "かくとう":
+                    case "じめん":
+                    case "はがね":
+                        result.textContent = "効果はいまひとつのようだ…";
+                        break;
+                    case "ほのお":
+                    case "こおり":
+                    case "ひこう":
+                    case "むし":
+                        result.textContent = "効果はばつぐんだ！";
+                        break;
+                    default:
+                        result.textContent = "エラー";
+                }
+                
+            }
+
+            document.getElementById("rock").addEventListener('click', battle_rock);
+
+
+
+            function battle_ghost(){
+                let random_type = rival_type.textContent;
+                reset();
+                switch (random_type){
+                    case "ほのお":
+                    case "みず":
+                    case "でんき":
+                    case "くさ":
+                    case "こおり":
+                    case "かくとう":
+                    case "どく":
+                    case "じめん":
+                    case "ひこう":
+                    case "むし":
+                    case "いわ":
+                    case "ドラゴン":
+                    case "はがね":
+                    case "フェアリー":
+                        result.textContent = "勝ち！";
+                        break;
+                    case "あく":
+                        result.textContent = "効果はいまひとつのようだ…";
+                        break;
+                    case "エスパー":
+                    case "ゴースト":
+                        result.textContent = "効果はばつぐんだ！";
+                        break;
+                    case "ノーマル":
+                        result.textContent = "効果がないようだ…";
+                        break;
+                    default:
+                        result.textContent = "エラー";
+                }
+                
+            }
+
+            document.getElementById("ghost").addEventListener('click', battle_ghost);
+
+
+
+            function battle_dragon(){
+                let random_type = rival_type.textContent;
+                reset();
+                switch (random_type){
+                    case "ノーマル":
+                    case "ほのお":
+                    case "みず":
+                    case "でんき":
+                    case "くさ":
+                    case "こおり":
+                    case "かくとう":
+                    case "どく":
+                    case "じめん":
+                    case "ひこう":
+                    case "エスパー":
+                    case "むし":
+                    case "いわ":
+                    case "ゴースト":
+                    case "あく":
+                        result.textContent = "勝ち！";
+                        break;
+                    case "はがね":
+                        result.textContent = "効果はいまひとつのようだ…";
+                        break;
+                    case "ドラゴン":
+                        result.textContent = "効果はばつぐんだ！";
+                        break;
+                    case "フェアリー":
+                        result.textContent = "効果がないようだ…";
+                        break;
+                    default:
+                        result.textContent = "エラー";
+                }
+                
+            }
+
+            document.getElementById("dragon").addEventListener('click', battle_dragon);
+
+
+
+
+            function battle_dark(){
+                let random_type = rival_type.textContent;
+                reset();
+                switch (random_type){
+                    case "ノーマル":
+                    case "ほのお":
+                    case "みず":
+                    case "でんき":
+                    case "くさ":
+                    case "こおり":
+                    case "どく":
+                    case "じめん":
+                    case "ひこう":
+                    case "むし":
+                    case "いわ":
+                    case "ドラゴン":
+                    case "はがね":
+                        result.textContent = "勝ち！";
+                        break;
+                    case "かくとう":
+                    case "あく":
+                    case "フェアリー":
+                        result.textContent = "効果はいまひとつのようだ…";
+                        break;
+                    case "エスパー":
+                    case "ゴースト":
+                        result.textContent = "効果はばつぐんだ！";
+                        break;
+                    default:
+                        result.textContent = "エラー";
+                }
+                
+            }
+
+            document.getElementById("dark").addEventListener('click', battle_dark);
+
+
+
+            function battle_steel(){
+                let random_type = rival_type.textContent;
+                reset();
+                switch (random_type){
+                    case "ノーマル":
+                    case "くさ":
+                    case "かくとう":
+                    case "どく":
+                    case "じめん":
+                    case "ひこう":
+                    case "エスパー":
+                    case "むし":
+                    case "ゴースト":
+                    case "ドラゴン":
+                    case "あく":
+                        result.textContent = "勝ち！";
+                        break;
+                    case "ほのお":
+                    case "みず":
+                    case "でんき":
+                    case "はがね":
+                        result.textContent = "効果はいまひとつのようだ…";
+                        break;
+                    case "こおり":
+                    case "いわ":
+                    case "フェアリー":
+                        result.textContent = "効果はばつぐんだ！";
+                        break;
+                    default:
+                        result.textContent = "エラー";
+                }
+                
+            }
+
+            document.getElementById("steel").addEventListener('click', battle_steel);
+
+
+
+            function battle_fairy(){
+                let random_type = rival_type.textContent;
+                reset();
+                switch (random_type){
+                    case "ノーマル":
+                    case "みず":
+                    case "でんき":
+                    case "くさ":
+                    case "こおり":
+                    case "じめん":
+                    case "ひこう":
+                    case "エスパー":
+                    case "むし":
+                    case "いわ":
+                    case "ゴースト":
+                    case "フェアリー":
+                        result.textContent = "勝ち！";
+                        break;
+                    case "ほのお":
+                    case "どく":
+                    case "はがね":
+                        result.textContent = "効果はいまひとつのようだ…";
+                        break;
+                    case "かくとう":
+                    case "ドラゴン":
+                    case "あく":
+                        result.textContent = "効果はばつぐんだ！";
+                        break;
+                    default:
+                        result.textContent = "エラー";
+                }
+                
+            }
+
+            document.getElementById("fairy").addEventListener('click', battle_fairy);
+        </script>
+    </body>
+</html>
+
